@@ -1,32 +1,30 @@
 module.exports = (grunt) ->
-
   grunt.initConfig
     coffee:
       ext:
-        files: 'bootstrap-windows.js': 'bootstrap-windows.coffee'
-        options: bare: false
+        files: 'dist/bump.js': 'src/coffee/bump.coffee'
+        options: bare: yes
 
     uglify:
-      options:
-        mangle: false
+      options: mangle: no
       target:
         files:
-          "bootstrap-windows.min.js": "bootstrap-windows.js"
+          "dist/bump.min.js": "dist/bump.js"
 
     less: 
       lib: 
+        options: compress: yes
         files:
-          'bootstrap-windows.min.css': 'bootstrap-windows.less'
-        options:
-          compress: true
+          'dist/bump.min.css': 'src/less/bump.less'
 
     watch: 
-      files: ['*.less', '*.coffee']
+      files: 'src/**/*'
       tasks: 'default'
 
   grunt.loadNpmTasks 'grunt-contrib-coffee'
   grunt.loadNpmTasks 'grunt-contrib-less'
   grunt.loadNpmTasks 'grunt-contrib-watch'
   grunt.loadNpmTasks 'grunt-contrib-uglify'
+  grunt.loadNpmTasks 'grunt-open'
 
   grunt.registerTask 'default', ['coffee', 'uglify', 'less']
