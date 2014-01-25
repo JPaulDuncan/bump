@@ -36,11 +36,13 @@ $ ->
         _offset = 0
         @bumps.center.swipe
           threshold: 20
+          allowPageScroll: "vertical"
           swipeStatus: (event, phase, direction, distance, duration, fingers) ->
             if 'bump-center' in event.target.classList or $(event.target).parent('.bump-center')
+              x = event.clientX or event.changedTouches[0].clientX
               switch phase
                 when 'start'
-                  x = event.clientX
+                  # x = event.clientX
                   o = $B.bumps.center.offset().left
                   _offset = x - o
                   w = $(window).width()
@@ -50,7 +52,7 @@ $ ->
                     $B.bumps.right.css 'zIndex', Bump.DEFAULTS.lvl1
                 when 'move'
                   if _can_drag and direction is 'left' or direction is 'right'
-                    left = event.clientX - _offset
+                    left = x - _offset
                     $B.bumps.center.addClass 'bump-dragging'
                     if $B.bumps.center.hasClass("bump-in-#{$B.flip direction}")
                       target = $B.bumps[direction]
@@ -61,7 +63,7 @@ $ ->
                     target.addClass('bump-in').css 'zIndex', Bump.DEFAULTS.lvl2
                 when 'end'
                   $B.bumps.center.removeClass('bump-dragging')
-                  left = event.clientX - _offset
+                  left = x - _offset
                   $B.bumps.center.removeAttr 'style'
                   if direction?
                     if $B.bumps.center.hasClass "bump-in-#{$B.flip direction}"
