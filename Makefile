@@ -10,8 +10,6 @@ tag:
 	git tag -m "" -a v$(shell python -c "import json;f=open('package.json');print(json.load(f)['version']);f.close();")
 	git push origin v$(shell python -c "import json;f=open('package.json');print(json.load(f)['version']);f.close();")
 
-deploy: build tag
-
 vevn:
 	npm install
 	bower install jquery bootstrap jquery-touchswipe
