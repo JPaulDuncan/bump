@@ -44,12 +44,13 @@ $(function() {
         _offset = 0;
         this.bumps.center.swipe({
           threshold: 20,
+          allowPageScroll: "vertical",
           swipeStatus: function(event, phase, direction, distance, duration, fingers) {
             var left, o, target, w, x;
             if (__indexOf.call(event.target.classList, 'bump-center') >= 0 || $(event.target).parent('.bump-center')) {
+              x = event.clientX || event.changedTouches[0].clientX;
               switch (phase) {
                 case 'start':
-                  x = event.clientX;
                   o = $B.bumps.center.offset().left;
                   _offset = x - o;
                   w = $(window).width();
@@ -61,7 +62,7 @@ $(function() {
                   break;
                 case 'move':
                   if (_can_drag && direction === 'left' || direction === 'right') {
-                    left = event.clientX - _offset;
+                    left = x - _offset;
                     $B.bumps.center.addClass('bump-dragging');
                     if ($B.bumps.center.hasClass("bump-in-" + ($B.flip(direction)))) {
                       target = $B.bumps[direction];
@@ -77,7 +78,7 @@ $(function() {
                   break;
                 case 'end':
                   $B.bumps.center.removeClass('bump-dragging');
-                  left = event.clientX - _offset;
+                  left = x - _offset;
                   $B.bumps.center.removeAttr('style');
                   if (direction != null) {
                     if ($B.bumps.center.hasClass("bump-in-" + ($B.flip(direction)))) {
