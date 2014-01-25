@@ -11,7 +11,7 @@
   border-radius: @radius;
 }
 
-.text-ellipsis {
+.text-overflow{
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
@@ -68,7 +68,9 @@ body > .navbar > .contain {
       .transition(all .3s);
       > .contain{
         height: 100%;
-        overflow-y: scroll;
+        position: fixed;
+        top: 0px;
+        overflow: scroll;
         -webkit-overflow-scrolling: touch;
         ul.nav.nav-stacked{
           /* for scrolling */
@@ -111,12 +113,14 @@ body > .navbar > .contain {
               }
             }
             &.li-header{
+              .text-overflow;
+              img{
+                margin-right: 3px;
+              }
               > h3 {
                 margin: 0px;
                 font-size: 1.5em;
-                img{
-                  margin-right: 3px;
-                }
+                display: inline;
               }
             }
             &.li-footer{
@@ -135,28 +139,26 @@ body > .navbar > .contain {
         }
       }
       > .bump-footer{
-        // width: @bump-panel-width;
+        width: 100%;
         margin: 0px;
         position: absolute;
         bottom: 0px;
         z-index: @lvl4;
-        &div{
-          background-color: #F7F7F7;
-          border-top: 1px solid #535353;
+        > a {
+          .text-overflow;
+          color: #494949;
+          font-size: 18px;
+          line-height: 25px;
           padding: 0px;
-          > a {
-            .text-ellipsis;
-            color: #494949;
-            font-size: 18px;
-            line-height: 25px;
-            padding: 0px;
-            text-decoration: none;
-            // color: #ececec;
-            > img{
-              /* bottom image alignment */
-              vertical-align: middle;
-              margin-right: 5px;
-            }
+          text-decoration: none;
+          // color: #ececec;
+          > img{
+            /* bottom image alignment */
+            vertical-align: middle;
+            margin-right: 5px;
+          }
+          > h3{
+            display: inline;
           }
         }
         &.btn{
@@ -216,14 +218,16 @@ body > .navbar > .contain {
     /* center panels */
     &.bump-center{
       background: white;
-      position: relative;
-      z-index: @lvl3;
+      position: fixed;
+      top: 0px;
       overflow-y: scroll;
-      height: 100%;
       width: 100%;
+      height:100%;
       -webkit-overflow-scrolling: touch;
+      z-index: @lvl3;
       &.navbar{
         /* top navbar */
+        position: fixed;
         width: 100%;
         height: 75px;
         margin: 0px;
@@ -239,7 +243,7 @@ body > .navbar > .contain {
               width: 100%;
               text-align: center;
               > h3{
-                .text-ellipsis;
+                .text-overflow;
                 display: inline-block;
                 vertical-align: middle;
                 margin-top: 0px;
@@ -259,16 +263,9 @@ body > .navbar > .contain {
           }
         }
       }
-      &.container{
-        /* main content */
-        z-index: @lvl4;
-        max-width: 100%;
-        // height: 100%;
-        > .contain{
-          max-width: 750px;
-          margin: 0 auto 150px auto;
-          padding: 10px;
-        }
+      &:not(.navbar){
+        height: 100%;
+        padding-top: 75px;
       }
 
       // Animation

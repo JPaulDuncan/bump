@@ -13,8 +13,9 @@ $ ->
         all: $ '.bump'
 
       # Toggles
-      $(document).on 'tap.bump click.bump', '[data-toggle="bump"]', (event) ->
-        event.preventDefault()
+      $(document).on 'touchstart.bump', '[data-toggle="bump"]', (event) ->
+        # event.preventDefault()
+        console.time('click')
         target = $(@attributes['data-target'].nodeValue)
         if target.length > 0
           _in = not target.hasClass('bump-in')
@@ -27,6 +28,7 @@ $ ->
           else
             $B.bumps.center.removeClass('bump-in-right bump-in-left')
             $B.bumps[$B.flip _dir].removeClass('bump-in')
+        console.timeEnd('click')
 
       ###
       Optional touchSwipe features
