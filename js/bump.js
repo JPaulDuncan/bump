@@ -17,9 +17,9 @@ $(function() {
         right: $('.bump.bump-right'),
         all: $('.bump')
       };
-      $(document).on('tap.bump click.bump', '[data-toggle="bump"]', function(event) {
+      $(document).on('touchstart.bump', '[data-toggle="bump"]', function(event) {
         var target, _dir, _in;
-        event.preventDefault();
+        console.time('click');
         target = $(this.attributes['data-target'].nodeValue);
         if (target.length > 0) {
           _in = !target.hasClass('bump-in');
@@ -28,12 +28,13 @@ $(function() {
             $B.bumps.left.css('zIndex', Bump.DEFAULTS.lvl1);
             $B.bumps.right.css('zIndex', Bump.DEFAULTS.lvl1);
             target.css('zIndex', Bump.DEFAULTS.lvl2).addClass('bump-in');
-            return $B.bumps.center.removeClass("bump-in-" + ($B.flip(_dir))).addClass("bump-in-" + _dir);
+            $B.bumps.center.removeClass("bump-in-" + ($B.flip(_dir))).addClass("bump-in-" + _dir);
           } else {
             $B.bumps.center.removeClass('bump-in-right bump-in-left');
-            return $B.bumps[$B.flip(_dir)].removeClass('bump-in');
+            $B.bumps[$B.flip(_dir)].removeClass('bump-in');
           }
         }
+        return console.timeEnd('click');
       });
       /*
       Optional touchSwipe features
